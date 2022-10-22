@@ -95,7 +95,7 @@ class InfoDoc(FPDF):
 
     def add_qr(self):
         
-        pagelink = "https://www.coop.ch/de/p/" + self.data['baseMaterialNumber']
+        pagelink = "https://www.coop.ch/de/p/" + self.data['code']
         img_url = self.generate_qr_link(pagelink)
         self.image(img_url, x=self.pdf_w - self.rec_width + 10, 
                    y=self.pdf_h-self.rec_width + 10, w= self.rec_width - 20, h=self.rec_width - 20, type ='PNG')     
@@ -104,7 +104,7 @@ class InfoDoc(FPDF):
     def generate_qr_link(content):
         QR_API = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data='
         return QR_API + content
-        
+
     def build_description(self):
         wineName = self.data["name"]
         country = self.data["wineOriginCountry"]

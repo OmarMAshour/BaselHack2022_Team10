@@ -1,0 +1,19 @@
+<script src="js/html5-qrcode.js"></script>
+<div class="d-flex justify-content-center">
+    <div style="width: 60%" id="reader"></div>
+</div>
+
+<div id="resultScan" class="d-flex justify-content-center">
+
+</div>
+
+<script>
+  function onScanSuccess(decodedText, decodedResult) {
+    html5QrcodeScanner.clear();
+    $("#resultScan").html("<div class='row d-flex justify-content-center' style='width: 60%; margin-top: 100px;'><div class='col-5 d-flex justify-content-center'><button class='btn btn-primary btn-lg'>Print label</button></div><div class='col-5 d-flex justify-content-center'><button class='btn btn-primary btn-lg'>Print sheet</button></div></div>");
+  }
+
+  var html5QrcodeScanner = new Html5QrcodeScanner(
+          "reader", { fps: 10, qrbox: 250 });
+  html5QrcodeScanner.render(onScanSuccess);
+</script>

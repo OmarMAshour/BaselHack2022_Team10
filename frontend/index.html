@@ -20,12 +20,6 @@
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Wine manager</a>
-    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
-        </li>
-    </ul> -->
     <div class="col-sm-8 col-md-9">&nbsp;</div>
     <div class="col-sm-1 col-md-1"><img src="2560px-Coop.png" style="width: 70px;height: auto;"></div>
 </nav>
@@ -41,9 +35,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <!--<input class="form-control w-75" type="text" placeholder="My cellar" aria-label="My cellar">
-                        <a href="#"><i data-feather="search"></i></a>
-                        <button class="btn btn-primary"></button>-->
                         <div style="padding: 10px;"><div class="input-group mb-2">
                             <input type="text" class="form-control" placeholder="My cellar" aria-label="My cellar" aria-describedby="My cellar">
                             <button class="btn btn-outline-secondary" type="button" id="search-btn"><i data-feather="search"></i></button>
@@ -71,11 +62,17 @@
             </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <main id="mainscreen" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
         </main>
     </div>
 </div>
+
+<style>
+    #mainscreen {
+        margin-left: 16.66666667%;
+    }
+</style>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -88,6 +85,10 @@
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
+</script>
+
+<script>
+    $("#mainscreen").load("templates/scancode.html");
 </script>
 
 </body>

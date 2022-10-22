@@ -8,4 +8,4 @@ def viewIndex(request):
     tryPDF()
     return FileResponse(open(tryPDF(), 'rb'), content_type='application/pdf')
 
-    # return render(request, 'coop_challenge/home.html', {})
+    # return render(request, 'coop_challenge/base.html', {})

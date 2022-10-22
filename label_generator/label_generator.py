@@ -1,5 +1,5 @@
-from blabel import LabelWriter
 from data_fetcher.fetcher import Fetcher
+import pdfkit
 
 
 def retrieve_wine_info():
@@ -16,59 +16,57 @@ def generate_html(product):
     message = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="label_template/style.css">
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <title>Label</title>
 </head>
 <body>
-<table>
+<table bordercolor="FFA400">
     <tr>
-        <td bgcolor="#FFA400" colspan="3">{product['name']}</td>
+        <td bgcolor="#FFA400" colspan="4">{product['name']}</td>
+    </tr>
+    <tr>
+        <td ROWSPAN="7"><img src="bottle.png" height="100"></td>
     </tr>
     <tr>
         <td>{product["yearOfVintage"]}</td>
-        <td>{product["wineMaker"]}</td>
-        <td><img width="200" src="img.png" /></td>
-        <!-- <td>{product["wineCharacter"]}</td> -->
+        <td>{product["wineCharacter"]}</td>
+        <td ROWSPAN="5"><img src="qr.svg" width="100"></td>
     </tr>
     <tr>
-        <td>Origin:</td>
+        <td><em>Origin:</em></td>
         <td>{product["wineOrigin"]}</td>
-        <td><img width="200" src="img.png" /></td>
     </tr>
     <tr>
-        <td>Grape Type:</td>
+        <td><em>Grape Type:</em></td>
         <td>{product["grapesText"]}</td>
     </tr>
     <tr>
-        <td>Optimal Maturity:</td>
-        <td>{product["enjoyFrom"] - product["enjoyUntil"]}</td>
+        <td><em>Optimal Maturity:</em></td>
+        <td>{product["enjoyFrom"]} - {product["enjoyUntil"]}</td>
     </tr>
     <tr>
-        <td>Alcohol Percentage:</td>
+        <td><em>Alcohol Percentage:</em></td>
         <td>{product["alcohol"]}</td>
-        <!-- <td>{product["sellPrice"]}</td> -->
     </tr>
-    </body>
-</table>
-</html>
-    """
+    <tr>
+        <td colspan ="2"><img src="logo.png" width="100"></td>
+        <td>{product["sellPrice"]}</td>
+      </tr>
+    </table>
+</body>
+</html>"""
 
     f.write(message)
     f.close()
 
 
 def create_label(prod):
-    generate_html(prod)
-    label_writer = LabelWriter("label_template/label_template.html",
-                               default_stylesheets=("label_template/style.css",))
-    records = [
-        dict(sample_id="s01", sample_name="Sample 1")
-    ]
-
-    label_writer.write_labels(records, target='output/label.pdf')
+    path = "label_template/label_template.html"
+    pdfkit.from_file(path, "output/label1.pdf", css="label_template/style.css")
 
 
 if __name__ == "__main__":
     product = retrieve_wine_info()
+    generate_html(product)
     create_label(product)

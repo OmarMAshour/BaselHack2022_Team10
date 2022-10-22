@@ -1,6 +1,6 @@
 from data_fetcher.fetcher import Fetcher
 import pdfkit
-
+import subprocess
 
 def retrieve_wine_info():
     fetcher = Fetcher()
@@ -63,7 +63,13 @@ def generate_html(product):
 
 def create_label(prod):
     path = "label_template/label_template.html"
-    pdfkit.from_file(path, "output/label1.pdf", css="label_template/style.css")
+    pdfkit.from_file(path, "output/label1.pdf", css="label_template/style.css", options={"enable-local-file-access": ""})
+
+
+def create_label_shell_call(prod):
+    # with relative paths in HTML, but with a local shell run :(
+    path = "label_template/label_template.html"
+    subprocess.run(["wkhtmltopdf", "--enable-local-file-access", path, "output/label1.pdf"])
 
 
 if __name__ == "__main__":

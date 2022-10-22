@@ -1,0 +1,69 @@
+<html>
+ 
+<head>
+  <title>FREE QRCode & BarCode Scanner Using Webcam & Image File Online Tool - Coding Shiksha</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<body>
+  <h1 style="text-align:center;">QRCode & BarCode Scanner Online Tool</h1>
+  <br><br>
+  <div id="qr-reader" style="width:auto;text-align: center;"></div>
+  <div id="qr-reader-results"></div>
+</body>
+<style>
+  body{
+    margin-top:50px;
+    margin-bottom: 100px;
+  }
+</style>
+ 
+<script>
+  function docReady(fn) {
+    // see if DOM is already available
+    if (document.readyState === "complete"
+      || document.readyState === "interactive") {
+      // call on next available tick
+      setTimeout(fn, 1);
+    } else {
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
+ 
+  docReady(function () {
+    var resultContainer = document.getElementById('qr-reader-results');
+    var lastResult, countResults = 0;
+    function onScanSuccess(decodedText, decodedResult) {
+      if (decodedText !== lastResult) {
+        ++countResults;
+        lastResult = decodedText;
+        // Handle on success condition with the decoded message.
+        $("#qr-reader-results").html(`
+                
+                <table>
+ 
+                  <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Result</th>  
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>${decodedText}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                
+                `)
+        console.log(`Scan result ${decodedText}`, decodedResult);
+      }
+    }
+ 
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+      "qr-reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess);
+  });
+</script>
+</head>
+ 
+</html>

@@ -7,32 +7,14 @@ import configparser
 from typing import List, Dict
 import ast
 
-label_keys = [
-    "alcohol",
-    "allPrices",
-    "baseMaterialNumber",
-    "code",
-    "enjoyFrom",
-    "enjoyUntil",
-    "grapesText",
-    "images",
-    "name",
-    "wineAgeing",
-    "wineCharacter",
-    "wineMaker",
-    "wineOrigin",
-    "wineOriginCountry",
-    "wineOriginRegion",
-    "yearOfVintage"
-]
-
 
 class Fetcher:
 
     def __init__(self) -> None:
         # read api configuration (secret)
         self.api_conf = configparser.RawConfigParser()
-        self.api_conf.read("api.conf")
+        self.api_conf.read("../conf/api.conf")
+
         api_details = dict(self.api_conf.items("Wine Info"))
 
         self.url = api_details['url']
@@ -40,7 +22,7 @@ class Fetcher:
 
         # read keys configuration for label and info sheet
         self.keys_conf = configparser.RawConfigParser()
-        self.keys_conf.read("keys.conf")
+        self.keys_conf.read("../conf/keys.conf")
         self.label_keys = ast.literal_eval(self.keys_conf.get("Keys", "label"))
 
     def find_for_labels(self, article_ids: List[str]) -> List[Dict]:
@@ -72,4 +54,3 @@ if __name__ == "__main__":
     fetcher = Fetcher()
     items = fetcher.find_for_labels(article_ids=["1007906010"])
     print(items)
-

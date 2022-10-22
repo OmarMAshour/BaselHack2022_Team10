@@ -1,0 +1,91 @@
+from data_fetcher.fetcher import Fetcher
+import pdfkit
+import subprocess
+
+
+def retrieve_wine_info():
+    fetcher = Fetcher()
+    product_dict = fetcher.find_for_labels(article_ids=["1000372018"])[0]
+    product_dict['sellPrice'] = product_dict["allPrices"][0]['sellPrice']
+    product_dict['wineCharacter'] = product_dict["wineCharacter"].split(",")[0]
+    del product_dict['allPrices']
+    return product_dict
+
+
+def generate_html(product):
+    f = open("label_template/label_template.html", "w")
+
+    bottle_url = "https://svgsilh.com/png-512/150955.png"
+    logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Coop.svg/2000px-Coop.svg.png"
+    qr_url = generate_qr_link(product['code'])
+
+    message = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Label</title>
+</head>
+<body>
+<table style="font-family: sans-serif; border: 2px solid #FFA400">
+    <tr>
+        <td style=font-size:20px bgcolor="#FFA400" colspan = "4"><b> &nbsp; {product['name']}</b></td>
+    </tr>
+    <tr>
+        <td width=80 ROWSPAN="7"><img src="{bottle_url}" height="150"></td>
+    </tr>
+    <tr>
+        <td width="80">{product["yearOfVintage"]}</td>
+        <td width="190">{product["wineCharacter"]}</td>
+        <td ROWSPAN="5"><img src={qr_url} width="100"></td>
+    </tr>
+    <tr>
+        <td><em>Origin:</em></td>
+        <td>{product["wineOrigin"]}</td>
+    </tr>
+    <tr>
+        <td><em>Grape:</em></td>
+        <td>{product["grapesText"]}</td>
+    </tr>
+    <tr>
+        <td><em>Maturity:</em></td>
+        <td>{product["enjoyFrom"]} - {product["enjoyUntil"]}</td>
+    </tr>
+    <tr>
+        <td><em>Alcohol:</em></td>
+        <td>{product["alcohol"]}%</td>
+    </tr>
+    <tr>
+        <td colspan ="2"><img src="{logo_url}" width="100"></td>
+        <td style=font-size:20px><b>{product["sellPrice"]} CHF</b></td>
+      </tr>
+    </table>
+</body>
+</html>"""
+
+    f.write(message)
+    f.close()
+
+
+def create_label(prod):
+    path = "label_template/label_template.html"
+    pdfkit.from_file(path, "output/label1.pdf", css="label_template/style.css",
+                     options={"enable-local-file-access": ""})
+
+
+def create_label_shell_call(prod):
+    # with relative paths in HTML, but with a local shell run :(
+    path = "label_template/label_template.html"
+    subprocess.run(["wkhtmltopdf", "--enable-local-file-access", path, "output/label1.pdf"])
+
+
+def generate_qr_link(productId):
+    link_to_wine = "https://www.coop.ch/p/" + productId
+    QR_API = f'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data={link_to_wine}'
+    return QR_API
+
+
+if __name__ == "__main__":
+    product = retrieve_wine_info()
+    generate_html(product)
+    create_label(product)

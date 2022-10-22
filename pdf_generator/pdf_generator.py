@@ -90,13 +90,20 @@ class InfoDoc(FPDF):
         self.multi_cell(w=60, h=5, txt= name + "\n" + str(vintage), align="C")   
         self.set_font("Arial", style = '', size = 12) 
         self.set_text_color(0)
-        
+    
+    
+
     def add_qr(self):
-        QR_API = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data='
+        
         pagelink = "https://www.coop.ch/de/p/" + self.data['baseMaterialNumber']
-        img_url = QR_API + pagelink 
+        img_url = self.generate_qr_link(pagelink)
         self.image(img_url, x=self.pdf_w - self.rec_width + 10, 
-                   y=self.pdf_h-self.rec_width + 10, w= self.rec_width - 20, h=self.rec_width - 20, type ='PNG')        
+                   y=self.pdf_h-self.rec_width + 10, w= self.rec_width - 20, h=self.rec_width - 20, type ='PNG')     
+
+    @staticmethod
+    def generate_qr_link(content):
+        QR_API = 'https://api.qrserver.com/v1/create-qr-code/?size=210x210&data='
+        return QR_API + content
         
     def build_description(self):
         wineName = self.data["name"]

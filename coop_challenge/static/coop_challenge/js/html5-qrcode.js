@@ -10015,15 +10015,15 @@ var __Html5QrcodeLibrary__;
                 }, t.codeScannerTitle = function() {
                     return "Code Scanner"
                 }, t.cameraPermissionTitle = function() {
-                    return "Open camera to scan"
+                    return "Kamera aktivieren zum Scannen"
                 }, t.cameraPermissionRequesting = function() {
                     return "Requesting camera permissions..."
                 }, t.noCameraFound = function() {
                     return "No camera found"
                 }, t.scanButtonStopScanningText = function() {
-                    return "Stop Scanning"
+                    return "Scannen beenden"
                 }, t.scanButtonStartScanningText = function() {
-                    return "Open camera to scan"
+                    return "Kamera aktivieren zum Scannen"
                 }, t.scanButtonScanningStarting = function() {
                     return "Launching Camera..."
                 }, t.textIfCameraScanSelected = function() {

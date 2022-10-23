@@ -1,16 +1,15 @@
 @page {
-    width: 27mm;
-    height: 7mm;
+    width: 1000mm;
+    height: 50mm;
     padding: 0.5mm;
 }
 img {
-    height: 6.4mm;
     display: inline-block;
     vertical-align: middle;
     image-rendering: pixelated;
 }
 .label {
-    font-family: Verdana;
+    font-family: Verdana, serif;
     font-weight: bold;
     vertical-align: middle;
     display: inline-block;

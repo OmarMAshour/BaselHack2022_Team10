@@ -37,7 +37,8 @@ class InfoDoc(FPDF):
         self.add_qr()
         self.add_name()
         self.add_attributes()
-
+        self.add_article_number()
+        
     def build_rect(self):
         self.set_fill_color(255, 168, 0)
         self.rect(x=self.pdf_w - self.rec_width, y=0, w=self.rec_width, h=self.pdf_h, style='F')
@@ -87,6 +88,13 @@ class InfoDoc(FPDF):
         self.set_xy(self.pdf_w - self.rec_width + 5, 3 * self.margin)
         self.multi_cell(w=60, h=5, txt=text,
                         align="C")
+
+    def add_article_number(self):
+        self.set_text_color(255)
+        self.set_font("Arial", style='B', size=14)
+        self.text(x=self.pdf_w - self.rec_width + self.margin,
+                  y=self.pdf_h - 5, txt=f"Art. {self.data['code']}")
+        self.set_text_color(0)
 
     def add_name(self):
         self.set_xy(self.pdf_w - self.rec_width + self.margin, self.margin)

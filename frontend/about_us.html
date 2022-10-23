@@ -19,7 +19,7 @@
 
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" style="font-weight: bold; font-size: 30px; padding-left: 20px;" href="#">TroVino</a>
+    <a id="trovinoToggle" class="navbar-brand col-sm-3 col-md-2 mr-0" style="font-weight: bold; font-size: 30px; padding-left: 20px;" href="#">TroVino</a>
 
     <div class="col-sm-8 col-md-9">&nbsp;</div>
     <div class="col-sm-1 col-md-1"><img src="2560px-Coop.png" style="width: 100px;height: auto;"></div>
@@ -27,8 +27,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky" style="display: block !important;">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar" data-collapsed="false">
+            <div class="sidebar-sticky" style="display: block !important; background-color: #ebecf0; ">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
@@ -42,20 +42,20 @@
                         </div></div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 10px ; padding-top: 10px; padding-bottom: 30px;" href="#">
-                            <span data-feather="tag"></span>
+                        <a class="nav-link" style = "color: black;font-size: 23px ; padding-top: 10px; padding-bottom: 30px;" href="#">
+                            <span style = "color: #FFA400;" data-feather="tag"></span>
                             Scan and label
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 10px; padding-bottom: 30px;" href="#">
-                            <span data-feather="users"></span>
+                        <a class="nav-link" style = "color: black; font-size: 23px; padding-bottom: 30px;" href="#">
+                            <span style = "color: #FFA400;" data-feather="users"></span>
                             Recommend wine
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 10px" href="#">
-                            <span data-feather="info"></span>
+                        <a class="nav-link" style = "color:black; font-size: 23px; padding-bottom:30px; " href="#">
+                            <span style = "color: #FFA400;"  data-feather="info"></span>
                             About
                         </a>
                     </li>
@@ -64,6 +64,17 @@
         </nav>
 
         <main id="mainscreen" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h2 style="margin-top: 10px;">About us</h2>
+                    
+            <img style="width:500; margin-top: 20px;" src="team10.jpeg"/>
+        </br>
+            <h5 style= "margin-top: 20px;">
+            Make your wine cellar spark joy! At BaselHack 2022, 8 motivated hackers got together to develop a wine manager.</p>
+            <p>This is TroVino - find my wine!</p>
+        </h5>
+    </br>
+    <h6 style= "margin-top: 20px;">Andrei, Jozef, Miruna, Noel, Nour, Omar, Phaina, Rui </p> </h6>
+            
 
         </main>
     </div>
@@ -90,6 +101,20 @@
 
 <script>
     $("#mainscreen").load("templates/scancode.html");
+</script>
+
+<script>
+    $("#trovinoToggle").click(function (){
+        if($("#sidebar").attr("data-collapsed") == "false") {
+            console.log("collapse");
+                $("#sidebar").attr("data-collapsed", "true");
+                $("#sidebar").css({"transform": "translate(-100%, 0)"});
+        } else {
+            console.log("show");
+            $("#sidebar").attr("data-collapsed", "false");
+            $("#sidebar").css({"transform": "translate(0%, 0)"});
+        }
+    });
 </script>
 
 </body>

@@ -16,13 +16,16 @@ def viewIndex(request):
 
 if __name__ == "__main__":
     id = "3760126362587"  # barcode
+    # id = "8437013744324"  # barcode
 
     fetcher = Fetcher()
     article_id = fetcher.find_article_id_by_barcode(id)
 
     # article_id = "1007906010"
+    article_id = "1016345001"
 
     json = fetcher.find_by_article_ids([article_id])
+    print(json)
 
     label_path = tryLabel(json[0].copy())
     info_path = tryInfo(json[0].copy())

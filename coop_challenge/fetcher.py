@@ -50,7 +50,13 @@ class Fetcher:
         return [{key: product[key] for key in keys} for product in products]
 
 
-def fetchData(article_id):
+if __name__ == "__main__":
     fetcher = Fetcher()
-    items = fetcher.find_for_labels(article_ids=[article_id])
-    return items[0]
+    items = fetcher.find_for_labels(article_ids=["1007906010"])
+
+    print(items)
+
+# def fetchData(article_id):
+#     fetcher = Fetcher()
+#     items = fetcher.find_for_labels(article_ids=[article_id])
+#     return items[0]

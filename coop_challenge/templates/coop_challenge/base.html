@@ -20,7 +20,7 @@
 
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0"  href="#"> <strong style="font-size: 18px;">&nbsp Wine Manager</strong></a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" style="font-weight: bold; font-size: 30px; padding-left: 20px;" href="#">TroVino</a>
     <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -41,29 +41,26 @@
                             <span class="sr-only">&nbsp;</span>
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: 15px;">
-                        <!--<input class="form-control w-75" type="text" placeholder="My cellar" aria-label="My cellar">
-                        <a href="#"><i data-feather="search"></i></a>
-                        <button class="btn btn-primary"></button>-->
+                    <li class="nav-item">
                         <div style="padding: 10px;"><div class="input-group mb-2">
-                            <input type="text" class="form-control" placeholder="My cellar" aria-label="My cellar" aria-describedby="My cellar">
+                            <input type="text" class="form-control" style = "font-size: 20px; padding-bottom: 10px"placeholder="My cellar ..." aria-label="My cellar" aria-describedby="My cellar">
                             <button class="btn btn-outline-secondary" type="button" id="search-btn"><i data-feather="search"></i></button>
                         </div></div>
                     </li>
-                    <li class="nav-item" style="margin-top: 12px;">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item">
+                        <a class="nav-link" style = "font-size: 20px ; padding-top: 10px; padding-bottom: 30px;" href="#">
                             <span data-feather="tag"></span>
                             Scan and label
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: 12px;">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item">
+                        <a class="nav-link" style = "font-size: 20px; padding-bottom: 30px;" href="#">
                             <span data-feather="users"></span>
                             Recommend wine
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: 15px;">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item">
+                        <a class="nav-link" style = "font-size: 20px" href="#">
                             <span data-feather="info"></span>
                             About
                         </a>
@@ -72,11 +69,20 @@
             </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-
+        <main id="mainscreen" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            hiiiii
+            {% block body %}
+            
+            {% endblock %}
         </main>
     </div>
 </div>
+
+<style>
+    #mainscreen {
+        margin-left: 16.66666667%;
+    }
+</style>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

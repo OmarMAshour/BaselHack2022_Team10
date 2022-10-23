@@ -6,6 +6,6 @@ from django.http import FileResponse
 # Create your views here.
 def viewIndex(request):
     tryPDF()
-    return FileResponse(open(tryPDF(), 'rb'), content_type='application/pdf')
+    # return FileResponse(open(tryPDF(), 'rb'), content_type='application/pdf')
 
-    # return render(request, 'coop_challenge/base.html', {})
+    return render(request, 'coop_challenge/base.html', {})

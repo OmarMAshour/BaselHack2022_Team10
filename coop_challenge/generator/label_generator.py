@@ -89,6 +89,17 @@ def generate_html(product):
 
 
 def create_label():
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
+    print(html_link)
     pdfkit.from_file(html_link, label_output_file_path, css=css_link, options={"enable-local-file-access": ""})
 
     return label_output_file_path

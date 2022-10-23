@@ -1,0 +1,72 @@
+{% extends 'coop_challenge/base.html' %}
+{% load static %}
+
+{% block body %}
+<script>
+function btn_click(){
+    var search_value= document.getElementById("plateText").value;
+    search_value = search_value.replaceAll(' ', '&&&');
+    document.getElementById("search-plate-btn").onclick = function () {
+        location.href = "http://127.0.0.1:8000/recommend/"+search_value;
+    };
+}
+
+</script>
+
+<div style="padding: 10px;">
+    <div class="row"><div class="col-12"><div class="input-group mb-2">
+    <input type="text" id="plateText" class="form-control" placeholder="Gericht suchen" aria-label="My cellar" aria-describedby="Search plate">
+        <button class="btn btn-outline-secondary" onclick="btn_click();" type="button" id="search-plate-btn"><i data-feather="search"></i></button>
+    </div></div>
+
+    </div>
+    <table class="table table-striped" style="margin-top: 80px;">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Herkunftsland</th>
+            <th scope="col">Genussreife</th>
+            <th scope="col">Passt zu</th>
+        </tr>
+        </thead>
+        <tbody id="perfectWines">
+            {% for r in results %}
+            <tr>
+                <td>
+                    {{ r.name }}
+                </td>
+                <td>
+                {{ r.wineOrigin }}
+            </td><td>
+                {{ r.maturity }}
+            </td>
+            <td>
+                {{ r.goesWithText_de }}
+            </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function ajaxWineBackend() {
+        text = document.getElementById("plateText").innerText;
+        jQuery.get("templates/fakeGateway.json", {"plateText": text}, function (data) {
+            $("#perfectWines").html("");
+           for(let product of data) {
+               console.log(product);
+               $("#perfectWines").html($("#perfectWines").html() +
+               "<tr>\n" +
+               "            <th scope=\"row\">"+product.name+"</th>\n" +
+               "            <td>"+product.wineOrigin+"</td>\n" +
+               "            <td>"+product.maturity+"</td>\n" +
+               "            <td>"+product.goesWith+"</td>\n" +
+               "        </tr>");
+           }
+        });
+    }
+    feather.replace()
+</script>
+{% endblock %}

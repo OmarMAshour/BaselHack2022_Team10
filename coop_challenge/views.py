@@ -37,6 +37,35 @@ def printLabel(request, article):
     return FileResponse(open(label_path, 'rb'), content_type='application/pdf')
 
 
+def viewRecommend(request):
+    return render(request, 'coop_challenge/recommend.html', {})
+
+
+
+
+
+def viewRecommResult(request, query):
+    query = query.replace('&&&', ' ')
+    filtered = ScannedWine.objects.distinct().filter(goesWithText_de__icontains=query).all()
+    results = []
+    for f in filtered:
+        entry = {'name': f.name, 'wineOrigin': f.wineOrigin, 'maturity': f.maturity, 'goesWith' : f.goesWithText_de, 'article_id': f.article_id}
+        results.append(entry)
+
+
+    return render(request,'coop_challenge/recommend.html', {'results':filtered})
+
+def viewSearch(request, query):
+    query = query.replace('&&&', ' ')
+    filtered = ScannedWine.objects.distinct().filter(name__icontains=query).all()
+    
+
+
+    return render(request,'coop_challenge/search.html', {'results':filtered})
+
+
+def viewAbout(request):
+    return render(request, 'coop_challenge/about_us.html', {})
 
 def printPdf(request, article):
     # tryPDF()
@@ -49,13 +78,13 @@ def printPdf(request, article):
 def fetchandsave(article):
     fetcher = Fetcher()
     if len(str(article)) == 13:
-        article = fetcher.find_article_id_by_barcode(id)
+        article = fetcher.find_article_id_by_barcode(article)
     old_scanned = ScannedWine.objects.filter(article_id= article)
     if len(old_scanned) == 1:
         # return json.loads(old_scanned[0].json)
         return old_scanned[0].json
     json_str = fetcher.find_by_article_ids([article])
     json_str = json_str[0]
-    new_scan = ScannedWine(name=json_str['name'], article_id = json_str['code'], alcohol=json_str['alcohol'], sellPrice=json_str['allPrices'][0]['sellPrice'], averageRating=json_str['averageRating'], maturity=str(json_str['enjoyFrom'])+' - ' +str(json_str['enjoyUntil']), goesWithText=json_str['goesWithText'], goesWithText_de=json_str['goesWithText_de'],  goesWithText_fr=json_str['goesWithText_fr'], goesWithText_it=json_str['goesWithText_it'], servingTemperature=json_str['servingTemperature'], wineCharacter=json_str['wineCharacter'], wineMaker=json_str['wineMaker'], wineOrigin=json_str['wineOrigin'], yearOfVintage=json_str['yearOfVintage'], json=json.dumps(json_str))
+    new_scan = ScannedWine(name=json_str['name'], article_id = json_str['code'], alcohol=json_str['alcohol'], sellPrice=json_str['allPrices'][0]['sellPrice'], maturity=str(json_str['enjoyFrom'])+' - ' +str(json_str['enjoyUntil']), goesWithText=json_str['goesWithText'], goesWithText_de=json_str['goesWithText_de'],  goesWithText_fr=json_str['goesWithText_fr'], goesWithText_it=json_str['goesWithText_it'], servingTemperature=json_str['servingTemperature'], wineCharacter=json_str['wineCharacter'], wineMaker=json_str['wineMaker'], wineOrigin=json_str['wineOrigin'], yearOfVintage=json_str['yearOfVintage'], json=json.dumps(json_str))
     new_scan.save()
-    return json_str
+    return json.dumps(json_str)

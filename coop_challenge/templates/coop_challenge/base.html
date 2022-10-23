@@ -30,11 +30,20 @@
     <div class="col-sm-8 col-md-9">&nbsp;</div>
     <div class="col-sm-1 col-md-1"><img src="{% static 'coop_challenge/img/2560px-Coop.png' %}" style="width: 70px;height: auto;"></div>
 </nav>
-
+<script>
+    function btn_click_search(){
+        var search_value= document.getElementById("search_data").value;
+        search_value = search_value.replaceAll(' ', '&&&');
+        document.getElementById("search-btn").onclick = function () {
+            location.href = "http://127.0.0.1:8000/search/"+search_value;
+        };
+    }
+    
+    </script>
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky" style="display: block !important;">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar" data-collapsed="false">
+            <div class="sidebar-sticky" style="display: block !important; background-color: #ebecf0; ">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
@@ -43,31 +52,33 @@
                     </li>
                     <li class="nav-item">
                         <div style="padding: 10px;"><div class="input-group mb-2">
-                            <input type="text" class="form-control" style = "font-size: 20px; padding-bottom: 10px"placeholder="Mein Weinkeller ..." aria-label="My cellar" aria-describedby="My cellar">
-                            <button class="btn btn-outline-secondary" type="button" id="search-btn"><i data-feather="search"></i></button>
+                            <input type="text" id="search_data" class="form-control" style = "font-size: 20px; padding-bottom: 10px"placeholder="Mein Weinkeller ..." aria-label="My cellar" aria-describedby="My cellar">
+                            <button class="btn btn-outline-secondary" onclick="btn_click_search();" type="button" id="search-btn"><i data-feather="search"></i></button>
                         </div></div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 20px ; padding-top: 10px; padding-bottom: 30px;" href="#">
-                            <span data-feather="tag"></span>
-                            Scannen und beschreiben
+                        <a class="nav-link" style = "color: black;font-size: 23px ; padding-top: 10px; padding-bottom: 30px;" href="{% url 'coop_challenge:index' %}">
+                            <span style = "color: #FFA400;" data-feather="tag"></span>
+                            Scannen und Labeln
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 20px; padding-bottom: 30px;" href="#">
-                            <span data-feather="users"></span>
+                        <a class="nav-link" style = "color: black; font-size: 23px; padding-bottom: 30px;" href="{% url 'coop_challenge:viewRecommend' %}">
+                            <span style = "color: #FFA400;" data-feather="users"></span>
                             Wein empfehlen
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style = "font-size: 20px" href="#">
-                            <span data-feather="info"></span>
+                        <a class="nav-link" style = "color:black; font-size: 23px; padding-bottom:30px; " href="{% url 'coop_challenge:about' %}">
+                            <span style = "color: #FFA400;"  data-feather="info"></span>
                             Über uns
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
+
+
 
         <main id="mainscreen" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             {% block body %}

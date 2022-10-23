@@ -8,7 +8,7 @@ class ScannedWine(models.Model):
     article_id = models.TextField(blank = True)
     alcohol = models.TextField(blank = True)
     sellPrice = models.TextField(blank = True)
-    averageRating = models.TextField(blank = True)
+    # averageRating = models.TextField(blank = True)
     maturity = models.TextField(blank = True)
     goesWithText = models.TextField(blank = True)
     goesWithText_de = models.TextField(blank = True)

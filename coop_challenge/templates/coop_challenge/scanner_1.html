@@ -13,7 +13,8 @@
 <script>
   function onScanSuccess(decodedText, decodedResult) {
     html5QrcodeScanner.clear();
-    $("#resultScan").html("<div class='row d-flex justify-content-center' style='width: 60%; margin-top: 100px;'><div class='col-5 d-flex justify-content-center'><button class='btn btn-primary btn-lg'>Print label</button></div><div class='col-5 d-flex justify-content-center'><button class='btn btn-primary btn-lg'>Print sheet</button></div></div>");
+    var decodedText_int = parseInt(decodedText);
+    $("#resultScan").html("<div class='row d-flex justify-content-center' style='width: 60%; margin-top: 100px;'><div class='col-12 d-flex justify-content-center' style=\"font-size:18px;\"><strong>Artikelnummer/Bar code gescannt:</strong><span style=\"color:#ffa500;\">&nbsp"+decodedText+"</span></div><br><br><br><br><div class='col-5 d-flex justify-content-center'><a href=\"printlabel/"+decodedText+"\"><button class='btn btn-primary btn-lg'>Label drucken</button></a></div><div class='col-5 d-flex justify-content-center'><a href=\"printpdf/"+decodedText+"\"><button class='btn btn-primary btn-lg'>Datenblatt drucken</button></a></div></div>".replace('decodedText_str', decodedText_int));
   }
 
   var html5QrcodeScanner = new Html5QrcodeScanner(

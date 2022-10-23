@@ -1,6 +1,27 @@
-from data_fetcher.fetcher import Fetcher
+import os
 import pdfkit
-import subprocess
+
+from coop_challenge.fetcher import Fetcher
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+html_link = f"{ROOT_DIR}/generator/label_template/label_template.html"
+css_link = f"{ROOT_DIR}/generator/label_template/style.css"
+label_output_filename = "label.pdf"
+label_output_folder_path = f"{ROOT_DIR}/output/"
+label_output_file_path = f"{ROOT_DIR}/output/{label_output_filename}"
+
+if not os.path.exists(label_output_folder_path):
+    os.makedirs(label_output_folder_path)
+
+
+def tryLabel(product_dict):
+    product_dict['sellPrice'] = product_dict["allPrices"][0]['sellPrice']
+    product_dict['wineCharacter'] = product_dict["wineCharacter"].split(",")[0]
+    del product_dict['allPrices']
+    generate_html(product_dict)
+    label_name = create_label()
+
+    return label_name
 
 
 def retrieve_wine_info():
@@ -13,7 +34,7 @@ def retrieve_wine_info():
 
 
 def generate_html(product):
-    f = open("label_template/label_template.html", "w")
+    f = open(html_link, "w")
 
     bottle_url = "https://svgsilh.com/png-512/150955.png"
     logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Coop.svg/2000px-Coop.svg.png"
@@ -22,7 +43,7 @@ def generate_html(product):
     message = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{css_link}">
     <meta charset="UTF-8">
     <title>Label</title>
 </head>
@@ -37,7 +58,7 @@ def generate_html(product):
     <tr>
         <td width="80">{product["yearOfVintage"]}</td>
         <td width="190">{product["wineCharacter"]}</td>
-        <td ROWSPAN="5"><img src={qr_url} width="100"></td>
+        <td ROWSPAN="5"><img src={qr_url} width="100" align="center"></td>
     </tr>
     <tr>
         <td><em>Origin:</em></td>
@@ -67,16 +88,10 @@ def generate_html(product):
     f.close()
 
 
-def create_label(prod):
-    path = "label_template/label_template.html"
-    pdfkit.from_file(path, "output/label1.pdf", css="label_template/style.css",
-                     options={"enable-local-file-access": ""})
+def create_label():
+    pdfkit.from_file(html_link, label_output_file_path, css=css_link, options={"enable-local-file-access": ""})
 
-
-def create_label_shell_call(prod):
-    # with relative paths in HTML, but with a local shell run :(
-    path = "label_template/label_template.html"
-    subprocess.run(["wkhtmltopdf", "--enable-local-file-access", path, "output/label1.pdf"])
+    return label_output_file_path
 
 
 def generate_qr_link(productId):
@@ -88,4 +103,4 @@ def generate_qr_link(productId):
 if __name__ == "__main__":
     product = retrieve_wine_info()
     generate_html(product)
-    create_label(product)
+    create_label()

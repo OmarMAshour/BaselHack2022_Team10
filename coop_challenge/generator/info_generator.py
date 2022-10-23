@@ -108,8 +108,8 @@ class InfoDoc(FPDF):
         self.set_text_color(0)
 
     def add_qr(self):
-        baseMaterialNumber = self.data.get('baseMaterialNumber', 'NotProvided')
-        pagelink = "https://www.coop.ch/de/p/" + baseMaterialNumber
+        code = self.data.get('code', 'NotProvided')
+        pagelink = "https://www.coop.ch/de/p/" + code
         img_url = self.generate_qr_link(pagelink)
         self.image(img_url, x=self.pdf_w - self.rec_width + 10,
                    y=self.pdf_h - self.rec_width + 10, w=self.rec_width - 20, h=self.rec_width - 20, type='PNG')

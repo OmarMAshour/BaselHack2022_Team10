@@ -23,7 +23,8 @@
             {% for r in results %}
             <tr>
                 <td>
-                    {{ r.name }}
+                    <a href="https://www.coop.ch/de/p/{{r.article_id}}" target="_blank">{{ r.name }}</a>
+                    
                 </td>
                 <td>
                 {{ r.wineOrigin }}

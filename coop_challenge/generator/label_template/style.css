@@ -1,17 +1,62 @@
 @page {
-    width: 1000mm;
+    width: 500mm;
     height: 50mm;
-    padding: 0.5mm;
+    padding: 5mm;
 }
-img {
-    display: inline-block;
-    vertical-align: middle;
-    image-rendering: pixelated;
+
+#td {
+    width: 50%;
 }
-.label {
-    font-family: Verdana, serif;
-    font-weight: bold;
-    vertical-align: middle;
-    display: inline-block;
-    font-size: 7px;
+
+#table {
+    table-layout: fixed;
+}
+
+#name {
+    alignment: left;
+    background-color: #FFA400;
+    font-size: 20px
+}
+
+#qr {
+    float: right;
+    width: 40mm;
+    margin: 0 30px 0;
+}
+
+#bottle {
+    align: centre;
+    margin-right: 20mm;
+    width: 20px;
+}
+
+#logo {
+    padding-left: 10px;
+}
+
+#year {
+    padding-left: 10px;
+    alignment: center;
+}
+
+#origin {
+    padding-left: 10px;
+}
+
+#grape {
+    padding-left: 10px;
+}
+
+#maturity {
+    padding-left: 10px;
+}
+
+#alcohol {
+    padding-left: 10px;
+}
+
+#price {
+    float: right;
+    font-size: 20px;
+    margin: 0 50px 0;
 }

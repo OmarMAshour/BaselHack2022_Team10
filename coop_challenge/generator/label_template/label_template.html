@@ -1,42 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/home/omar/Documents/BaselHack/BaselHack2022/coop_challenge/generator/label_template/style.css">
+    <link rel="stylesheet" href="/home/andrei/Desktop/BaselHack2022_Team10/coop_challenge/generator/label_template/style.css">
     <meta charset="UTF-8">
     <title>Label</title>
 </head>
 <body>
-<table style="font-family: sans-serif; border: 2px solid #FFA400">
+<table id="table" style="font-family: sans-serif; border: 2px solid #FFA400">
     <tr>
-        <td style=font-size:20px bgcolor="#FFA400" colspan = "4"><b> &nbsp; Château Lynch-Moussas Pauillac AC 5ème Cru Classé</b></td>
+        <td colspan = "4" id="name"><b> &nbsp; Rioja DOCa Selección Especial Cooperation Wine Cune</b></td>
     </tr>
     <tr>
-        <td width=80 ROWSPAN="7"><img src="https://svgsilh.com/png-512/150955.png" height="150"></td>
+        <td ROWSPAN="7" id="bottle"><img src="https://svgsilh.com/png-512/150955.png" height="150"></td>
     </tr>
     <tr>
-        <td width="80">2017</td>
-        <td width="190"></td>
-        <td ROWSPAN="5"><img src=https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=https://www.coop.ch/p/4039025008 width="100" align="center"></td>
+        <td width="100" id="year">2018</td>
+        <td width="300">Rotwein, mittelschwer/weich</td>
+        <td ROWSPAN="5"><img src=https://api.qrserver.com/v1/create-qr-code/?size=210x210&data=https://www.coop.ch/p/1013351005 id="qr"></td>
     </tr>
     <tr>
-        <td><em>Origin:</em></td>
-        <td>Bordeaux - Pauillac, Frankreich</td>
+        <td id="origin"><em>Origin:</em></td>
+        <td>Rioja, Spanien</td>
     </tr>
     <tr>
-        <td><em>Grape:</em></td>
-        <td>Cabernet Sauvignon, Merlot, Cabernet Franc</td>
+        <td id="grape"><em>Grape:</em></td>
+        <td>Grenache, Graciano, Tempranillo, Mazuela</td>
     </tr>
     <tr>
-        <td><em>Maturity:</em></td>
-        <td>2023 - 2030</td>
+        <td id="maturity"><em>Maturity:</em></td>
+        <td>2021 - 2023</td>
     </tr>
     <tr>
-        <td><em>Alcohol:</em></td>
-        <td>13.0%</td>
+        <td id="alcohol"><em>Alcohol:</em></td>
+        <td>13.5%</td>
     </tr>
     <tr>
-        <td colspan ="2"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Coop.svg/2000px-Coop.svg.png" width="100"></td>
-        <td style=font-size:20px><b>47.5 CHF</b></td>
+        <td colspan ="2" id="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Coop.svg/2000px-Coop.svg.png" width="100"></td>
+        <td id="price""><b>15.15 CHF</b></td>
       </tr>
     </table>
 </body>

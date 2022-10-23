@@ -37,8 +37,7 @@ class InfoDoc(FPDF):
         self.add_qr()
         self.add_name()
         self.add_attributes()
-        self.add_article_number()
-        
+
     def build_rect(self):
         self.set_fill_color(255, 168, 0)
         self.rect(x=self.pdf_w - self.rec_width, y=0, w=self.rec_width, h=self.pdf_h, style='F')
@@ -69,48 +68,48 @@ class InfoDoc(FPDF):
         self.set_font("Arial", style='', size=12)
         self.set_text_color(0)
 
+    def get_attr_or_none(self, dict, key):
+        return dict.get(key, None)
+
     def add_attributes(self):
         self.set_text_color(255)
         price = str(self.data['allPrices'][0]['sellPrice']) + " CHF"
-        character = self.data['wineCharacter']
-        origin = self.data['wineOrigin']
-        maker = self.data['wineMaker']
-        enjoyFrom = self.data["enjoyFrom"]
-        enjoyUntil = self.data["enjoyUntil"]
+        wineCharacter = self.data.get('wineCharacter', 'NotProvided')
+        wineOrigin = self.data.get('wineOrigin', 'NotProvided')
+        wineMaker = self.data.get('wineMaker', 'NotProvided')
+        enjoyFrom = self.data.get('enjoyFrom', 'NotProvided')
+        enjoyUntil = self.data.get('enjoyUntil', 'NotProvided')
         bottomTemp = self.data["servingTemperature"].split("-")[0]
         topTemp = self.data["servingTemperature"].split("-")[1]
-        grapes = self.data['grapesText']
-        percent = self.data['alcohol']
+        grapes = self.data.get('grapesText', 'NotProvided')
+        percent = self.data.get('alcohol', 'NotProvided')
+        averageRating = self.data.get('averageRating', 'NotProvided')
+        typeOfSeal = self.data.get('typeOfSeal', 'NotProvided')
+        wineAgeing = self.data.get('wineAgeing', 'NotProvided')
 
-        text = f"{price}\n\n{character}\n{origin}\nWinzer - {maker} \n\nRebsorte - {grapes}\n{percent}% VOL\n\n"
-        text += f"Am besten, {enjoyFrom} - {enjoyUntil}\n {bottomTemp} - {topTemp} °C\n\nPrämierung - {self.data['averageRating']}"
-        text += f"\n\nFlaschenverschluss - {self.data['typeOfSeal']}\n\nAusbauart - {self.data['wineAgeing']}"
+        text = f"{price}\n\n{wineCharacter}\n{wineOrigin}\nWinzer - {wineMaker} \n\nRebsorte - {grapes}\n{percent}% VOL\n\n"
+        text += f"Am besten, {enjoyFrom} - {enjoyUntil}\n {bottomTemp} - {topTemp} °C\n\nPrämierung - {averageRating}"
+        text += f"\n\nFlaschenverschluss - {typeOfSeal}\n\nAusbauart - {wineAgeing}"
         self.set_xy(self.pdf_w - self.rec_width + 5, 3 * self.margin)
         self.multi_cell(w=60, h=5, txt=text,
                         align="C")
 
-    def add_article_number(self):
-        self.set_text_color(255)
-        self.set_font("Arial", style='B', size=14)
-        self.text(x=self.pdf_w - self.rec_width + self.margin,
-                  y=self.pdf_h - 5, txt=f"Art. {self.data['code']}")
-        self.set_text_color(0)
-
     def add_name(self):
         self.set_xy(self.pdf_w - self.rec_width + self.margin, self.margin)
-        name = self.data['name_de']
+        name = self.data.get('name_de', 'NotProvided')
         self.set_text_color(255)
 
-        vintage = self.data['yearOfVintage']
+        yearOfVintage = self.data.get('yearOfVintage', 'NotProvided')
 
         self.set_font("Arial", style='B', size=14)
         self.set_xy(self.pdf_w - self.rec_width + 5, self.margin)
-        self.multi_cell(w=60, h=5, txt=name + "\n" + str(vintage), align="C")
+        self.multi_cell(w=60, h=5, txt=name + "\n" + str(yearOfVintage), align="C")
         self.set_font("Arial", style='', size=12)
         self.set_text_color(0)
 
     def add_qr(self):
-        pagelink = "https://www.coop.ch/de/p/" + self.data['baseMaterialNumber']
+        code = self.data.get('code', 'NotProvided')
+        pagelink = "https://www.coop.ch/de/p/" + code
         img_url = self.generate_qr_link(pagelink)
         self.image(img_url, x=self.pdf_w - self.rec_width + 10,
                    y=self.pdf_h - self.rec_width + 10, w=self.rec_width - 20, h=self.rec_width - 20, type='PNG')
@@ -121,26 +120,29 @@ class InfoDoc(FPDF):
         return QR_API + content
 
     def build_description(self):
-        wineName = self.data["name"]
-        country = self.data["wineOriginCountry"]
-        yearOfVintage = self.data["yearOfVintage"]
-        enjoyFrom = self.data["enjoyFrom"]
-        enjoyUntil = self.data["enjoyUntil"]
-        bottomTemp = self.data["servingTemperature"].split("-")[0]
-        topTemp = self.data["servingTemperature"].split("-")[1]
+        name = self.data.get('name', 'NotProvided')
+        wineOriginCountry = self.data.get('wineOriginCountry', 'NotProvided')
+        yearOfVintage = self.data.get('yearOfVintage', 'NotProvided')
+        enjoyFrom = self.data.get('enjoyFrom', 'NotProvided')
+        enjoyUntil = self.data.get('enjoyUntil', 'NotProvided')
+        servingTemperature = self.data.get('servingTemperature', 'NotProvided').split("-")[0]
+        topTemp = self.data.get('servingTemperature', 'NotProvided').split("-")[1]
         pairing = ""
-        pairing_split = self.data["goesWithText_de"].split(",")
-        for s in pairing_split[:-1]:
-            pairing += s
-        pairing += f", und {pairing_split[-1]}"
+        goesWithText_de = self.data.get('goesWithText_de', 'NotProvided')
+        if goesWithText_de == 'NotProvided':
+            pairing = "NotProvided"
+        else:
+            pairing_split = goesWithText_de.split(",")
+            for s in pairing_split[:-1]:
+                pairing += s
+            pairing += f", und {pairing_split[-1]}"
 
-        self.desc1 = f"{wineName}: der wein aus {country} wurde {yearOfVintage} abgefüllt. Am besten genießt man ihn zwischen {enjoyFrom} und {enjoyUntil}."
-        self.desc2 = f"Der Wein passt gut zu {pairing}, und wird am besten zwischen {bottomTemp} und {topTemp} °C genossen"
-        self.tasting_notes = self.data["tastingNotes_de"]
+        self.desc1 = f"{name}: der wein aus {wineOriginCountry} wurde {yearOfVintage} abgefüllt. Am besten genießt man ihn zwischen {enjoyFrom} und {enjoyUntil}."
+        self.desc2 = f"Der Wein passt gut zu {pairing}, und wird am besten zwischen {servingTemperature} und {topTemp} °C genossen"
+        self.tasting_notes = self.data.get('tastingNotes_de', 'NotProvided')
 
     def save_doc(self, path):
         self.output(path)
-        # self.output()
 
 
 def tryInfo(product_dict):

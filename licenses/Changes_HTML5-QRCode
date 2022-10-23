@@ -1,0 +1,5 @@
+As stated on the Apache 2.0 license, this document reports the changes done in the library.
+
+The min library has deminified for debugging.
+Partial translation starting at lines 10000+
+Adding Bootstrap classes btn and btn-primary to the buttons.

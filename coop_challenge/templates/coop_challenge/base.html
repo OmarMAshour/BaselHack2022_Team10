@@ -7,7 +7,7 @@
     <meta name="author" content="">
 
     <title>Wine Manager</title>
-
+    <script src="{% static 'coop_challenge/js/html5-qrcode.js' %}"></script>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'coop_challenge/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'coop_challenge/css/bootstrap-reboot.min.css' %}" rel="stylesheet">
@@ -43,26 +43,26 @@
                     </li>
                     <li class="nav-item">
                         <div style="padding: 10px;"><div class="input-group mb-2">
-                            <input type="text" class="form-control" style = "font-size: 20px; padding-bottom: 10px"placeholder="My cellar ..." aria-label="My cellar" aria-describedby="My cellar">
+                            <input type="text" class="form-control" style = "font-size: 20px; padding-bottom: 10px"placeholder="Mein Weinkeller ..." aria-label="My cellar" aria-describedby="My cellar">
                             <button class="btn btn-outline-secondary" type="button" id="search-btn"><i data-feather="search"></i></button>
                         </div></div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style = "font-size: 20px ; padding-top: 10px; padding-bottom: 30px;" href="#">
                             <span data-feather="tag"></span>
-                            Scan and label
+                            Scannen und beschreiben
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style = "font-size: 20px; padding-bottom: 30px;" href="#">
                             <span data-feather="users"></span>
-                            Recommend wine
+                            Wein empfehlen
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style = "font-size: 20px" href="#">
                             <span data-feather="info"></span>
-                            About
+                            Über uns
                         </a>
                     </li>
                 </ul>
@@ -70,7 +70,6 @@
         </nav>
 
         <main id="mainscreen" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            hiiiii
             {% block body %}
             
             {% endblock %}

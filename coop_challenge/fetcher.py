@@ -73,3 +73,11 @@ class Fetcher:
 if __name__ == "__main__":
     fetcher = Fetcher()
     print(fetcher.find_article_id_by_barcode("3760126362587"))
+    items = fetcher.find_for_labels(article_ids=["1007906010"])
+
+    print(items)
+
+# def fetchData(article_id):
+#     fetcher = Fetcher()
+#     items = fetcher.find_for_labels(article_ids=[article_id])
+#     return items[0]

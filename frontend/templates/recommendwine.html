@@ -1,0 +1,41 @@
+<div style="padding: 10px;">
+    <div class="row"><div class="col-12"><div class="input-group mb-2">
+    <input type="text" id="plateText" class="form-control" placeholder="Search plate" aria-label="My cellar" aria-describedby="Search plate">
+    <button class="btn btn-outline-secondary" type="button" id="search-plate-btn" onclick="ajaxWineBackend()"><i data-feather="search"></i></button>
+    </div></div>
+
+    </div>
+    <table class="table table-striped" style="margin-top: 80px;">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Maturity</th>
+            <th scope="col">Pairs well with</th>
+        </tr>
+        </thead>
+        <tbody id="perfectWines">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function ajaxWineBackend() {
+        text = document.getElementById("plateText").innerText;
+        jQuery.get("templates/fakeGateway.json", {"plateText": text}, function (data) {
+            $("#perfectWines").html("");
+           for(let product of data) {
+               console.log(product);
+               $("#perfectWines").html($("#perfectWines").html() +
+               "<tr>\n" +
+               "            <th scope=\"row\">"+product.name+"</th>\n" +
+               "            <td>"+product.wineOrigin+"</td>\n" +
+               "            <td>"+product.maturity+"</td>\n" +
+               "            <td>"+product.goesWith+"</td>\n" +
+               "        </tr>");
+           }
+        });
+    }
+    feather.replace()
+</script>
